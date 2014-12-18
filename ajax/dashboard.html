@@ -385,9 +385,133 @@
 		<!--End Dashboard Tab 4-->
 	</div>
 	<div class="clearfix"></div>
+	<div class="col-xs-12">
+<a href="#" class="btn btn-info">Toggle Voter</a><a href="#" class="btn btn-danger">Toggle Staff</a>
+ <div id="map" style="width: 1260px; height: 500px;">
+ 	 
+ </div>
+		</div 
 </div>
 <!--End Dashboard 2 -->
 <div style="height: 40px;"></div>
+
+ <script type="text/javascript"> 
+  Parse.initialize("wfHvQ9eUY8uBSzH147bbltKT8kZtRVS0zsEcqMs6", "jkEv173IgMvxwnzM4SRijdCkQO5UnyyT1MVR2ILJ");  
+  var voterList;
+  var locationTest = [];
+  var photoList;
+ 
+  var query = new Parse.Query("voter");
+  //query.notEqualTo("username" , "Ninoy Aquino");
+  query.find({
+    success: function(results) {
+      //alert("Successfully retrieved " + results.length + " voters.");
+      voterList = results; 
+          // Do something with the returned Parse.Object values
+
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+
+
+            /*  //Get row id == photo owner and get its image file
+              var searchedOwner;
+              for(var i = 0; i < photoList.length; i++){
+                  var row = photoList[i];
+                  if(row.get('photo_owner').equals( object.get('row_id')  )  ){
+                    searchedOwner = row;
+                  }
+              }*/
+            locationTest[i] = [ object.get('voter_name'), 
+                                object.get('voter_last_coordinates_lng'), 
+                                object.get('voter_last_coordinates_lat'), 
+                                object.get('row_id'), 
+                                "http://www.ilo.org/wcmsp5/groups/public/---asia/---ro-bangkok/---ilo-manila/documents/image/wcms_237659.jpg" 
+                              ];
+
+
+           
+           console.log( object.id + " - " + object.get('voter_name') + " - "+ 
+                        object.get('voter_last_coordinates_lng')+ " - "+ 
+                        object.get('voter_last_coordinates_lat') + " - "+
+                        object.get('voter_')
+                         );
+          
+         }
+           goHere();
+       },
+       error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      } 
+    });
+   
+// ------------------------> maps
+ 
+    
+    function goHere(){
+      
+    var voter = [
+      ['Armando Ricarte', 7.13244795, 125.60754776, 6],
+      ['Armando Dela Cruz', 7.13200082, 125.6073761, 5],
+      ['Amando Duran', 7.13214986, 125.60804129, 3],
+      ['Soryano Alibaba 4', 7.1323202, 125.60862064, 2],
+      ['Romano Macandadang 5', 7.13110657, 125.60806274, 1],
+      ['Juan Dela Cruz' , 7.13317186, 7.13317186 , 7],
+      ['Pedro Duenas' , 7.13255441 , 125.60602427 , 9],
+      ['Ramon Piang' , 7.13489648, 125.61383486 , 8],
+      ['Alberto Cristobal' , 7.13461969 , 125.61241865, 10],
+      ['Ricardo Teleron' ,7.1345984 , 125.61132431 , 11] ,
+    ];
+
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(7.13, 125.6),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locationTest.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locationTest[i][1], locationTest[i][2]),
+        map: map, 
+        title: "Staff"
+      }); 
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() { 
+       var loc = '<div id="content" class="noscrollbar">' +
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                      '<h1 id="firstHeading" class="firstHeading">'+ locationTest[i][0]  +'</h1>' +
+                      '<div id="bodyContent">' +
+                      '<img class="img-thumbnail" src="'+locationTest[i][4]+'">'
+                      '<p> The quick brown fox jumps over the lazy dog zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p'
+                      '</div>'+ 
+                  '</div>';
+
+          infowindow.setContent(  loc) ;
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }  
+
+      var myPin= new google.maps.MarkerImage("http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Marker-Outside-Azure-icon.png");
+      var marker, i;
+       for (i = 0; i < voter.length; i++) {  
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(voter[i][1], voter[i][2]),
+              map: map, 
+              title: "Voter",
+              icon: myPin
+
+            }); 
+    }
+
+  }
+  </script>
+
 <script type="text/javascript">
 // Array for random data for Sparkline
 var sparkline_arr_1 = SparklineTestData();
