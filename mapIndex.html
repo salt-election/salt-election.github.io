@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h3>Choose Map Type</h3>
+<button onclick="changeRoadmap()">RoadMap</button>
+<button onclick="changeHybrid()">Hybrid</button>
+<button onclick="changeTerrain()">Terrain</button> <br/>
+<button onclick="zoomIn()">Zoom In</button>
+<button onclick="zoomOut()">Zoom Out</button>
+<div id="map_canvass"></div>
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyAsH3M7NWaZD0T3NsMglJETTGlHQd3ap88"></script>
+
+	<script src="PatrollerMap.js"></script>
+	<script src="mapOptions.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
