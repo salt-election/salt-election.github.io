@@ -40,28 +40,7 @@
 		marker_id++;  
 	}); 
 
-	for(var i = 0; i < 500; i++){
-		map.addMarker({
-			id: marker_id,
-			lat: 7.1324 + Math.random(),
-			lng: 125.6169 + Math.random(), 
-			 
-			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
-		});
-		marker_id++;
-		console.log(marker_id);
-	}
-	for(var i = 0; i < 500; i++){
-		map.addMarker({
-			id: marker_id,
-			lat: 7.1324 + Math.random(),
-			lng: 125.6169 + Math.random(), 
-			 
-			content: '<div class="noscrollbar"><b>Voter</b> <br/>voter default </div>',
-		});
-		marker_id++;
-		console.log(marker_id);
-	}
+	
 
 
 	//map.addMarker(7.1325 ,125.6169  );
@@ -94,6 +73,7 @@
 		console.log("Deleting all items in array");
 		console.log(map.markers);
 		map.markers._clearMarkers();
+		map.markerClusterer.clearMarkers();
 	}
 	function findId(){
 		var id = document.getElementById('findInput').value; 
@@ -106,5 +86,30 @@
 		else{
 			console.log('found : ' +id);
 		}
+	}
+	function loadData(){
+		var marker_id = 1;
+		for(var i = 0; i < 500; i++){
+		map.addMarker({
+			id: marker_id,
+			lat: 7.1324 + Math.random(),
+			lng: 125.6169 + Math.random(), 
+			 icon: 'img/map_icons/staff.png',
+			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
+		});
+		marker_id++;
+		console.log(marker_id);
+	}
+	for(var i = 0; i < 500; i++){
+		map.addMarker({
+			id: marker_id,
+			lat: 7.1324 + Math.random(),
+			lng: 125.6169 + Math.random(), 
+			 icon: 'img/map_icons/voter_default.png',
+			content: '<div class="noscrollbar"><b>Voter</b> <br/>voter default </div>',
+		});
+		marker_id++;
+		console.log(marker_id);
+	}
 	}
  

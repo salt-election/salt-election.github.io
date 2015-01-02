@@ -5,9 +5,10 @@
 		lat: 7.1324,
 		lng : 125.6169,
 	},
-	zoom: 10,
+	zoom: 8,
 	disableDefaultUI: true,   
-	 
+	minZoom: 8,
+
 	disableDoubleClickZoom: true,
 	mapTypeId: google.maps.MapTypeId.HYBRID,
 	zoomContolOptions : {

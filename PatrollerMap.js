@@ -3,6 +3,7 @@
 		function Mapatrol(element,opts){
 			this.gMap = new google.maps.Map(element, opts); 
 			this.markers = List.create();
+			this.markerClusterer = new MarkerClusterer(this.gMap, []);
 		}
 		Mapatrol.prototype = { 
 			setMapTypeId: function(id){
@@ -27,6 +28,7 @@
 				 	lng: opts.lng
 				}
 				marker = this._createMarker(opts); 
+				this.markerClusterer.addMarker(marker);
 				this.markers.add(marker);
 				if(opts.content){
 					this._onMarker({
@@ -48,7 +50,7 @@
 			}, 
 			findBy: function(callback){
 				return this.markers.find(callback);
-			},
+			}, 
 			_createMarker: function(opts){
 				/*var opts = {
 					position: { lat: _lat, lng: _lng } ,  
