@@ -17,8 +17,7 @@
    element = document.getElementById('map_canvass'),
 // map
 
-	map = Mapatrol.create(element,options);
-	
+	map = Mapatrol.create(element,options); 
 
 	map._onMap('dblclick', function(e){
 		var _lat = e.latLng.k, _lng = e.latLng.D;
@@ -28,20 +27,43 @@
 			lat: _lat,
 			lng: _lng,
 			icon: 'img/map_icons/staff.png',
-			draggable:false,
+			draggable: false,
 			id: marker_id,
 			type: 'staff',
 			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
 			event: {
 				name: 'click', 
-				callback: function(){
-					//alert('hey');
+				callback: function(){ 
 				}
 			}
 		});
-		marker_id++; 
-	});
- 
+		marker_id++;  
+	}); 
+
+	for(var i = 0; i < 500; i++){
+		map.addMarker({
+			id: marker_id,
+			lat: 7.1324 + Math.random(),
+			lng: 125.6169 + Math.random(), 
+			 
+			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
+		});
+		marker_id++;
+		console.log(marker_id);
+	}
+	for(var i = 0; i < 500; i++){
+		map.addMarker({
+			id: marker_id,
+			lat: 7.1324 + Math.random(),
+			lng: 125.6169 + Math.random(), 
+			 
+			content: '<div class="noscrollbar"><b>Voter</b> <br/>voter default </div>',
+		});
+		marker_id++;
+		console.log(marker_id);
+	}
+
+
 	//map.addMarker(7.1325 ,125.6169  );
 	
 	//map = new google.maps.Map(element, options); 
@@ -67,5 +89,22 @@
 	}  
 	function zoomOut(){
 			map._zoomOut();
+	}
+	function deleteMarker(){ 
+		console.log("Deleting all items in array");
+		console.log(map.markers);
+		map.markers._clearMarkers();
+	}
+	function findId(){
+		var id = document.getElementById('findInput').value; 
+		var found = map.findBy(function (marker) {
+			return marker.id === Number(id);
+		});
+		if(typeof found === 'undefined'){
+			console.log('not found');
+		}
+		else{
+			console.log('found : ' +id);
+		}
 	}
  

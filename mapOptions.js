@@ -7,7 +7,7 @@
 	},
 	zoom: 10,
 	disableDefaultUI: true,   
-	minZoom:12,
+	 
 	disableDoubleClickZoom: true,
 	mapTypeId: google.maps.MapTypeId.HYBRID,
 	zoomContolOptions : {

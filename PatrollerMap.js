@@ -1,7 +1,8 @@
-(function ( window,google){
+(function ( window,google, List){
 	var Mapatrol = (function () {
 		function Mapatrol(element,opts){
 			this.gMap = new google.maps.Map(element, opts); 
+			this.markers = List.create();
 		}
 		Mapatrol.prototype = { 
 			setMapTypeId: function(id){
@@ -26,6 +27,7 @@
 				 	lng: opts.lng
 				}
 				marker = this._createMarker(opts); 
+				this.markers.add(marker);
 				if(opts.content){
 					this._onMarker({
 						obj: marker,
@@ -41,10 +43,11 @@
 						obj : marker,
 						event : opts.event.name,
 						callback: opts.event.callback
-					});
-				 
-					console.log('has eent');
+					}); 
 				} 
+			}, 
+			findBy: function(callback){
+				return this.markers.find(callback);
 			},
 			_createMarker: function(opts){
 				/*var opts = {
@@ -60,7 +63,7 @@
 			},
 			_zoomOut: function(){
 				this.gMap.setZoom( this.gMap.getZoom() -2);
-			}
+			},    
 
 		};
 		return Mapatrol;
@@ -70,4 +73,4 @@
 		return new Mapatrol(element,opts);
 	}; 
 	window.Mapatrol = Mapatrol;
-}(window, google) );
+}(window, google, List) );
