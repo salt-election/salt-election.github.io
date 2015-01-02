@@ -10,4 +10,13 @@ body{
 }
 #map_canvass{
 	height:100%;
-}
+} 
+.noscrollbar {
+		line-height:1.35;
+		overflow:hidden;
+		white-space:nowrap; 
+		}
+		.img-thumbnail{
+		  width: 80px;
+		  height: 80px;
+		}

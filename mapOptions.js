@@ -8,6 +8,7 @@
 	zoom: 10,
 	disableDefaultUI: true,   
 	minZoom:12,
+	disableDoubleClickZoom: true,
 	mapTypeId: google.maps.MapTypeId.HYBRID,
 	zoomContolOptions : {
 		position: google.maps.ControlPosition.RIGHT_TOP,

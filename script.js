@@ -13,22 +13,37 @@
 
 // map options
 	var options = testMap.MAP_OPTIONS;
-
+	var marker_id = 1;
    element = document.getElementById('map_canvass'),
 // map
+
 	map = Mapatrol.create(element,options);
-	map._on('click', function(e){
+	
+
+	map._onMap('dblclick', function(e){
 		var _lat = e.latLng.k, _lng = e.latLng.D;
 		console.log("Pointed to : " +e.latLng.D +" "+ e.latLng.k );
 		
-		map.addMarker( _lat, _lng );
-		
+		mamMarker = map.addMarker( {
+			lat: _lat,
+			lng: _lng,
+			icon: 'img/map_icons/staff.png',
+			draggable:false,
+			id: marker_id,
+			type: 'staff',
+			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
+			event: {
+				name: 'click', 
+				callback: function(){
+					//alert('hey');
+				}
+			}
+		});
+		marker_id++; 
 	});
-
+ 
 	//map.addMarker(7.1325 ,125.6169  );
 	
-
-
 	//map = new google.maps.Map(element, options); 
 }(window, window.Mapatrol  ));
 

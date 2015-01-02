@@ -7,22 +7,52 @@
 			setMapTypeId: function(id){
 				this.gMap.setMapTypeId(id);
 			},
-			_on : function(event, callback){
+			_onMap : function(event, callback){
 				var self = this;
 				google.maps.event.addListener(this.gMap, event, function(e){
 					callback.call(self, e);
 				});
+			}, 
+			_onMarker : function(opts){
+				var self = this; 
+				google.maps.event.addListener( opts.obj , 'click', function(e){
+					opts.callback.call(self, e);
+				});
 			},
-			addMarker: function (lat, lng){
-				this._createMarker(lat,lng);
+			addMarker: function (opts){
+				var marker;
+				opts.position ={ 
+					lat: opts.lat,
+				 	lng: opts.lng
+				}
+				marker = this._createMarker(opts); 
+				if(opts.content){
+					this._onMarker({
+						obj: marker,
+						event: 'click',
+						callback: function(){
+							var infoWindow = new google.maps.InfoWindow({ title:'staff', content: opts.content });
+							infoWindow.open(this.gMap, marker);
+						}
+					})
+				}
+				if(opts.event){
+					this._onMarker({
+						obj : marker,
+						event : opts.event.name,
+						callback: opts.event.callback
+					});
+				 
+					console.log('has eent');
+				} 
 			},
-			_createMarker: function(_lat,_lng){
-				var opts = {
+			_createMarker: function(opts){
+				/*var opts = {
 					position: { lat: _lat, lng: _lng } ,  
 					map: this.gMap,
 					icon: 'img/map_icons/staff.png'
-				};
-
+				};*/
+				opts.map = this.gMap;
 				return new google.maps.Marker(opts);
 			},
 			_zoomIn: function(){
