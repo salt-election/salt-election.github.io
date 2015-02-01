@@ -13,6 +13,9 @@
 					this.items.splice(indexOf, 1);
 				} 
 			},
+			count: function(){
+				return this.items.length;
+			},
 			find: function(callback){
 				var callbackReturn;
 					items = this.items,
@@ -26,7 +29,7 @@
 							matches.push(items[i]);
 						}
 					}
-
+					
 					return matches;
 			}, 
 			_clearMarkers: function(){

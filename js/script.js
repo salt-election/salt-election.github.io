@@ -9,58 +9,58 @@
 // UNLIKELY #d92100 url---- http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-d92100/shapecolor-color/shadow-1/border-dark/symbolstyle-white/symbolshadowstyle-dark/gradient-iphone/letter_v.png
 // POTENTIAL #d9c700 url--- http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-d9c700/shapecolor-color/shadow-1/border-dark/symbolstyle-white/symbolshadowstyle-dark/gradient-iphone/letter_v.png
 // default 2727c4
-( function(window,$){
- 
-	var geocoder = new google.maps.Geocoder();
+( function(window,mapatrol){
 
-	 $map = $('#map_canvass').mapatrol(testMap.MAP_OPTIONS);
-	 $map.mapatrol('addMarker', {
-			id: 1,
-			lat: 7.132453 + Math.random(),
-			lng: 125.616953 + Math.random(), 
-			 icon: 'img/map_icons/staff.png',
+	// map options
+	var options = testMap.MAP_OPTIONS;
+	var marker_id = 1;
+   element = document.getElementById('map_canvass'),
+	// map
+
+	map = Mapatrol.create(element,options); 
+
+	map._onMap('dblclick', function(e){
+		var _lat = e.latLng.k, _lng = e.latLng.D;
+		console.log("Pointed to : " +e.latLng.D +" "+ e.latLng.k );
+		
+		mamMarker = map.addMarker( {
+			lat: _lat,
+			lng: _lng,
+			icon: 'img/map_icons/staff.png',
+			draggable: false,
+			id: marker_id,
+			type: 'staff',
 			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
-	});
+			event: {
+				name: 'click', 
+				callback: function(){ 
+				}
+			}
+		});
+		marker_id++;  
+	}); 
+
+	
+
+
 	//map.addMarker(7.1325 ,125.6169  );
 	
 	//map = new google.maps.Map(element, options); 
-	function geocode(opts){
-		geocoder.geocode({
-			address: opts.address
-		}, function(results,status){
-			if(status === google.maps.GeocoderStatus.OK){
-				console.log(results); 
-			}
-			else{
-				console.error(status);
-			}
-		});
-	}
-	geocode({
-		address: 'Davao City',
-		success: function(results){
-				console.log("\n"+results[0]);
-		},
-		error: function(status){
-			console.error(status);
-		}
-	})
-
-}(window, jQuery   ));
+}(window, window.Mapatrol  ));
 	var toggled = false;
 	function changeRoadmap(){
 		if( typeof map != 'undefined'){ 
-			$map.mapatrol.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+			map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
 			 }
 	}
 	function changeHybrid(){
 		if( typeof map != 'undefined'){ 
-			$map.mapatrol.setMapTypeId(google.maps.MapTypeId.HYBRID); 
+			 map.setMapTypeId(google.maps.MapTypeId.HYBRID); 
 		}
 	}
 	function changeTerrain(){
 		if( typeof map != 'undefined'){ 
-			$map.mapatrol.setMapTypeId(google.maps.MapTypeId.TERRAIN); 
+			map.setMapTypeId(google.maps.MapTypeId.TERRAIN); 
 		}
 	}
 	function zoomIn(){
@@ -84,33 +84,31 @@
 	}
 	function findId(){
 		var id = document.getElementById('findInput').value; 
-		var found = $map.mapatrol('findMarkers', function(marker){
+		var found = map.findBy(function (marker) {
 			return marker.id === Number(id);
 		});
 		if(typeof found === 'undefined'){
 			console.log('not found');
 		}
 		else{
-			console.log('has results : ' + found.length);
-			$map.mapatrol.Mapatrol.gMap.setCenter( { 	lat: 7.1324, lng : 125.6169,} );
+			console.log('found : ' +id);
 		}
 	}
 	function loadData(){
 		var marker_id = 1;
-		var length_value = $('#length').html();
 		for(var i = 0; i < 500; i++){
-		  $map.mapatrol('addMarker', {
+		map.addMarker({
 			id: marker_id,
 			lat: 7.1324 + Math.random(),
 			lng: 125.6169 + Math.random(), 
 			 icon: 'img/map_icons/staff.png',
 			content: '<div class="noscrollbar"><b>Staff</b> <br/>Staff leader </div>',
-	 });
+		});
 		marker_id++;
 		console.log(marker_id);
 	}
-	/*for(var i = 0; i < 500; i++){
-	  $map.mapatrol('addMarker', {
+	for(var i = 0; i < 500; i++){
+		map.addMarker({
 			id: marker_id,
 			lat: 7.1324 + Math.random(),
 			lng: 125.6169 + Math.random(), 
@@ -119,9 +117,6 @@
 		});
 		marker_id++;
 		console.log(marker_id);
-	}*/
-	//console.log( $map.mapatrol('myMarkers') );
-
-	$('#length').html( $map.mapatrol('myMarkers').length );
-}
+	}
+	}
  

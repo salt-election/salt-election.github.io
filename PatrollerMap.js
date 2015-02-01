@@ -3,11 +3,17 @@
 		function Mapatrol(element,opts){
 			this.gMap = new google.maps.Map(element, opts); 
 			this.markers = List.create();
-			this.markerClusterer = new MarkerClusterer(this.gMap, []);
+			if(opts.cluster){
+				this.markerClusterer = new MarkerClusterer(this.gMap, [], opts.cluster.options);
+			}
+			
 		}
 		Mapatrol.prototype = { 
 			setMapTypeId: function(id){
 				this.gMap.setMapTypeId(id);
+			},
+			getInstance: function(){
+				return this.gMap;
 			},
 			_onMap : function(event, callback){
 				var self = this;
@@ -28,9 +34,12 @@
 				 	lng: opts.lng
 				}
 				marker = this._createMarker(opts); 
-				this.markerClusterer.addMarker(marker);
+
+				if(this.markerClusterer){
+					this.markerClusterer.addMarker(marker);
+				}
 				this.markers.add(marker);
-				if(opts.content){
+				if(opts.content){  
 					this._onMarker({
 						obj: marker,
 						event: 'click',
@@ -74,5 +83,8 @@
 	Mapatrol.create = function(element,opts) {
 		return new Mapatrol(element,opts);
 	}; 
+	Mapatrol.getInstance = function(){
+		return this.gMap;
+	}
 	window.Mapatrol = Mapatrol;
 }(window, google, List) );

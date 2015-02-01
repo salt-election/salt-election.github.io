@@ -1,16 +1,9 @@
-html{
-	height:100%;
+
+html,body, #map_canvass{
+	 padding: 0;
+        margin: 0;
+        height: 100%;
 }
-body{
-	color: green;
-	background: #C0C0C0;
-	height:100%;
-	padding: 0;
-	margin: 0;
-}
-#map_canvass{
-	height:100%;
-} 
 .noscrollbar {
 		line-height:1.35;
 		overflow:hidden;
@@ -20,3 +13,29 @@ body{
 		  width: 80px;
 		  height: 80px;
 		}
+
+
+		  #panel {
+        width: 200px;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        float: right;
+        margin: 10px;
+      }
+
+      #color-palette {
+        clear: both;
+      }
+
+      .color-button {
+        width: 14px;
+        height: 14px;
+        font-size: 0;
+        margin: 2px;
+        float: left;
+        cursor: pointer;
+      }
+
+      #delete-button {
+        margin-top: 5px;
+      }
